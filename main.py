@@ -114,6 +114,20 @@ class ImageProcessor:
                 result[i:i+block_size, j:j+block_size] = avg_value
         
         return result.astype(np.uint8)
+        
+    def demonstrate_resolution_reduction(self):
+       
+        block_sizes = [3, 5, 7]
+        images = [self.original_image]
+        titles = ['Original']
+        
+        for size in block_sizes:
+            reduced_img = self.reduce_resolution_blocks(size)
+            images.append(reduced_img)
+            titles.append(f'{size}x{size} Blocks')
+        
+        self.display_images(images, titles)
+        return images, titles
 
 def create_sample_image():
    
