@@ -95,6 +95,26 @@ class ImageProcessor:
         self.display_images(images, titles)
         return images, titles
 
+    # 4. Block-wise Resolution Reduction
+    def reduce_resolution_blocks(self, block_size):
+      
+        h, w = self.original_image.shape
+        result = self.original_image.copy().astype(np.float32)
+        
+        # Process non-overlapping blocks
+        for i in range(0, h - block_size + 1, block_size):
+            for j in range(0, w - block_size + 1, block_size):
+                # Extract block
+                block = self.original_image[i:i+block_size, j:j+block_size]
+                
+                # Calculate average
+                avg_value = np.mean(block)
+                
+                # Replace all pixels in block with average
+                result[i:i+block_size, j:j+block_size] = avg_value
+        
+        return result.astype(np.uint8)
+
 def create_sample_image():
    
     # Create a sample image with various patterns
