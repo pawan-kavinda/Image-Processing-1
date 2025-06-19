@@ -45,7 +45,25 @@ class ImageProcessor:
         
         return result
    
+     # 2. Spatial Averaging
+    def spatial_average(self, kernel_size):
+      
+        kernel = np.ones((kernel_size, kernel_size), np.float32) / (kernel_size * kernel_size)
+        averaged = cv2.filter2D(self.original_image, -1, kernel)
+        return averaged
     
+    def demonstrate_spatial_averaging(self):       
+        kernel_sizes = [3, 10, 20]
+        images = [self.original_image]
+        titles = ['Original']
+        
+        for size in kernel_sizes:
+            averaged_img = self.spatial_average(size)
+            images.append(averaged_img)
+            titles.append(f'{size}x{size} Average')
+        
+        self.display_images(images, titles)
+        return images, titles
 
 def create_sample_image():
    
@@ -84,6 +102,10 @@ def main():
         # 1. Intensity Level Reduction
         print("\n1. Intensity Level Reduction...")
         processor.demonstrate_intensity_reduction()
+
+         # 2. Spatial Averaging
+        print("\n2. Spatial Averaging...")
+        processor.demonstrate_spatial_averaging()
         
      
     except Exception as e:
