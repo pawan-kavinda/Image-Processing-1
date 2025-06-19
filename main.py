@@ -82,6 +82,19 @@ class ImageProcessor:
         
         return rotated
 
+        def demonstrate_rotation(self):       
+        angles = [45, 90]
+        images = [self.original_image]
+        titles = ['Original']
+        
+        for angle in angles:
+            rotated_img = self.rotate_image(angle)
+            images.append(rotated_img)
+            titles.append(f'Rotated {angle}°')
+        
+        self.display_images(images, titles)
+        return images, titles
+
 def create_sample_image():
    
     # Create a sample image with various patterns
