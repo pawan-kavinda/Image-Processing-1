@@ -65,6 +65,23 @@ class ImageProcessor:
         self.display_images(images, titles)
         return images, titles
 
+    # 3. Image Rotation
+    def rotate_image(self, angle):
+       
+        if angle == 90:
+            # Use OpenCV for 90-degree rotation (more efficient)
+            rotated = cv2.rotate(self.original_image, cv2.ROTATE_90_CLOCKWISE)
+        elif angle == -90:
+            rotated = cv2.rotate(self.original_image, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        elif angle == 180:
+            rotated = cv2.rotate(self.original_image, cv2.ROTATE_180)
+        else:
+            # Use scipy for arbitrary angles
+            rotated = rotate(self.original_image, angle, reshape=True, mode='constant', cval=0)
+            rotated = np.clip(rotated, 0, 255).astype(np.uint8)
+        
+        return rotated
+
 def create_sample_image():
    
     # Create a sample image with various patterns
@@ -107,6 +124,9 @@ def main():
         print("\n2. Spatial Averaging...")
         processor.demonstrate_spatial_averaging()
         
+         # 3. Image Rotation
+        print("\n3. Image Rotation...")
+        processor.demonstrate_rotation()
      
     except Exception as e:
         print(f"Error: {e}")
