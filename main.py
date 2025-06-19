@@ -44,8 +44,21 @@ class ImageProcessor:
         result = (quantized * scale_factor).astype(np.uint8)
         
         return result
-   
-     # 2. Spatial Averaging
+    
+    def demonstrate_intensity_reduction(self):       
+        levels = [2, 4, 8, 16, 32, 64]
+        images = [self.original_image]
+        titles = ['Original (256 levels)']
+        
+        for level in levels:
+            reduced_img = self.reduce_intensity_levels(level)
+            images.append(reduced_img)
+            titles.append(f'{level} levels')
+        
+        self.display_images(images, titles, figsize=(18, 12))
+        return images, titles
+    
+    # 2. Spatial Averaging
     def spatial_average(self, kernel_size):
       
         kernel = np.ones((kernel_size, kernel_size), np.float32) / (kernel_size * kernel_size)
@@ -64,7 +77,7 @@ class ImageProcessor:
         
         self.display_images(images, titles)
         return images, titles
-
+    
     # 3. Image Rotation
     def rotate_image(self, angle):
        
@@ -81,8 +94,8 @@ class ImageProcessor:
             rotated = np.clip(rotated, 0, 255).astype(np.uint8)
         
         return rotated
-
-        def demonstrate_rotation(self):       
+    
+    def demonstrate_rotation(self):       
         angles = [45, 90]
         images = [self.original_image]
         titles = ['Original']
@@ -94,7 +107,7 @@ class ImageProcessor:
         
         self.display_images(images, titles)
         return images, titles
-
+    
     # 4. Block-wise Resolution Reduction
     def reduce_resolution_blocks(self, block_size):
       
@@ -114,7 +127,7 @@ class ImageProcessor:
                 result[i:i+block_size, j:j+block_size] = avg_value
         
         return result.astype(np.uint8)
-
+    
     def demonstrate_resolution_reduction(self):
        
         block_sizes = [3, 5, 7]
@@ -128,7 +141,7 @@ class ImageProcessor:
         
         self.display_images(images, titles)
         return images, titles
-
+    
     def save_results(self, output_dir="results"):
        
         if not os.path.exists(output_dir):
@@ -201,15 +214,15 @@ def main():
         # 1. Intensity Level Reduction
         print("\n1. Intensity Level Reduction...")
         processor.demonstrate_intensity_reduction()
-
-         # 2. Spatial Averaging
+        
+        # 2. Spatial Averaging
         print("\n2. Spatial Averaging...")
         processor.demonstrate_spatial_averaging()
         
-         # 3. Image Rotation
+        # 3. Image Rotation
         print("\n3. Image Rotation...")
         processor.demonstrate_rotation()
-
+        
         # 4. Resolution Reduction
         print("\n4. Resolution Reduction...")
         processor.demonstrate_resolution_reduction()
@@ -219,9 +232,10 @@ def main():
         processor.save_results()
         
         print("\nAll operations completed successfully!")
-     
+        
     except Exception as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     main()
