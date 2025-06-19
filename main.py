@@ -114,7 +114,7 @@ class ImageProcessor:
                 result[i:i+block_size, j:j+block_size] = avg_value
         
         return result.astype(np.uint8)
-        
+
     def demonstrate_resolution_reduction(self):
        
         block_sizes = [3, 5, 7]
@@ -128,6 +128,41 @@ class ImageProcessor:
         
         self.display_images(images, titles)
         return images, titles
+
+    def save_results(self, output_dir="results"):
+       
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        
+        # Save original
+        cv2.imwrite(f"{output_dir}/original.png", self.original_image)
+        
+        # Save intensity reduction results
+        levels = [2, 4, 8, 16, 32, 64]
+        for level in levels:
+            reduced_img = self.reduce_intensity_levels(level)
+            cv2.imwrite(f"{output_dir}/intensity_{level}_levels.png", reduced_img)
+        
+        # Save spatial averaging results
+        kernel_sizes = [3, 10, 20]
+        for size in kernel_sizes:
+            averaged_img = self.spatial_average(size)
+            cv2.imwrite(f"{output_dir}/spatial_avg_{size}x{size}.png", averaged_img)
+        
+        # Save rotation results
+        angles = [45, 90]
+        for angle in angles:
+            rotated_img = self.rotate_image(angle)
+            cv2.imwrite(f"{output_dir}/rotated_{angle}_degrees.png", rotated_img)
+        
+        # Save resolution reduction results
+        block_sizes = [3, 5, 7]
+        for size in block_sizes:
+            reduced_img = self.reduce_resolution_blocks(size)
+            cv2.imwrite(f"{output_dir}/resolution_reduced_{size}x{size}.png", reduced_img)
+        
+        print(f"All results saved to '{output_dir}' directory")
+
 
 def create_sample_image():
    
