@@ -209,6 +209,16 @@ def main():
          # 3. Image Rotation
         print("\n3. Image Rotation...")
         processor.demonstrate_rotation()
+
+        # 4. Resolution Reduction
+        print("\n4. Resolution Reduction...")
+        processor.demonstrate_resolution_reduction()
+        
+        # Save all results
+        print("\n5. Saving Results...")
+        processor.save_results()
+        
+        print("\nAll operations completed successfully!")
      
     except Exception as e:
         print(f"Error: {e}")
