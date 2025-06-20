@@ -170,30 +170,10 @@ class ImageProcessor:
 
         print(f"All results saved to '{output_dir}' directory")
 
-def create_sample_image():
-    # Create a sample image with various patterns
-    img = np.zeros((256, 256), dtype=np.uint8)
-
-    # Add some geometric patterns
-    cv2.rectangle(img, (50, 50), (100, 100), 255, -1)
-    cv2.circle(img, (150, 150), 30, 128, -1)
-    cv2.line(img, (0, 0), (255, 255), 64, 2)
-
-    # Add some noise
-    noise = np.random.randint(0, 50, (256, 256))
-    img = np.clip(img.astype(np.int16) + noise, 0, 255).astype(np.uint8)
-
-    cv2.imwrite("sample_image.png", img)
-    return "sample_image.png"
-
 # Demonstration and Testing
 def main():
-    # Create or use existing image
-    image_path = "sample.jpg"
-    if not os.path.exists(image_path):
-        print("Creating sample image for demonstration...")
-        image_path = create_sample_image()
-
+   
+    image_path = "sample.jpg"   
     try:
         # Initialize processor
         processor = ImageProcessor(image_path)
