@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import rotate
 import os
 
-class ImageProcessor:
+class ImageProcessing:
     def __init__(self, image_path):
         """Initialize image file."""
         self.original_image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -176,7 +176,7 @@ def main():
     image_path = "sample.jpg"   
     try:
         # Initialize processor
-        processor = ImageProcessor(image_path)
+        processor = ImageProcessing(image_path)
 
         print("=== Image Processing Assignment 1. ===")
         print(f"Original image shape: {processor.original_image.shape}")
