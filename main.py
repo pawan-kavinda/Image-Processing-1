@@ -173,7 +173,7 @@ class ImageProcessing:
 # Demonstration and Testing
 def main():
    
-    image_path = "sample.jpg"   
+    image_path = "sample.png"   
     try:
         # Initialize processor
         processor = ImageProcessing(image_path)
